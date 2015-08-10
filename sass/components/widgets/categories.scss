@@ -1,0 +1,21 @@
+
+.widget-category {
+  overflow: hidden;
+  .widget-content  {
+    border: none !important;
+  }
+  .widget-content > ul > li {
+    a.active {
+      background-color: $hover-color;
+    }
+    position: relative;
+    & > ul {
+      display: none;
+      position: relative;
+      padding: 0;
+      li a {
+        padding-left: $h4-font-size;
+      }
+    }
+  }
+}

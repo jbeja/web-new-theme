@@ -1,0 +1,59 @@
+
+/*------------------------------------------------*/
+// TABS
+
+
+.tabs {
+  @include inline-list();
+  margin: 0 0 $h6-font-size 0;
+  .tab-item {
+    min-width: get-in($widths, btn);
+    padding: $micro-font-size;
+    text-align: center;
+    cursor: pointer;
+    @include breakpoint("small") {
+      text-align: left;
+    }
+  }
+  .tab  {
+    margin: 0;
+    background: $light-color;
+    overflow: hidden;
+    span {
+      font-weight: 400;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+  .tab.active:first-child .tab-item,
+  .tab:not(.active):first-child .tab-item {
+    @include box-border($width: 1px 0px 1px 1px);
+  }
+  .tab.active:last-child .tab-item,
+  .tab:not(.active):last-child .tab-item {
+    @include box-border($width: 1px 1px 1px 0px);
+  }
+
+  .tab.active .tab-item {
+    background: $base-darkness;
+    color: $dark-color;
+  }
+  .tab-item  {
+    @include breakpoint("small") {
+      border: none !important;
+    }
+    &.active {
+      background-color: $hover-color;
+    }
+  }
+}
+
+.tabs > li {
+  @include breakpoint("small") {
+    float: none;
+    .tab-item {
+      width: 100%;
+    }
+  }
+}

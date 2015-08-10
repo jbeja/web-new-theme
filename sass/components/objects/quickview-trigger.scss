@@ -1,0 +1,22 @@
+.thumb  {
+  & + .quick-view {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 50% 50%;
+    transform: translateX(-50%) translateY(-50%) scale(0) rotate(360deg);
+    opacity: 0;
+    color: $light-color;
+    background: $base-color url('../svg-build/light-search.svg') no-repeat 50% 50%;
+    background-size: $h5-font-size;
+    width: rem-calc(50);
+    height: rem-calc(50);
+    border-radius: 50%;
+    font-size: 0;
+    @include single-transition();
+  }
+  &:hover + .quick-view, & + .quick-view:hover {
+    transform: translateX(-50%) translateY(-50%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}

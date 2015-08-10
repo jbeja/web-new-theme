@@ -1,0 +1,17 @@
+/*------------------------------------------------*/
+// PAGINATION
+
+.pagination {
+  margin-top: 0;
+  color: $light-dark-color;
+  font-family: $alter-font-family;
+  font-size: $micro-font-size;
+  margin-bottom: $h6-font-size;
+  float: right;
+  a {
+    margin: 0 0 0 $milli-font-size;
+  }
+}
+
+/*------------------------------------------------*/
+// PAGINATION ENDS

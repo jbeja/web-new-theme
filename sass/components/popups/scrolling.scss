@@ -1,0 +1,80 @@
+/*------------------------------------------------*/
+// Scroll Effects
+
+@include breakpoint("large-up") {
+  html:not(.no-js) .home-page {
+    //Initial state
+    .section-reveal {
+      @include single-transition($speed: 650ms, $ease: ease-in-out);
+    }
+    .section-reveal.init {
+      opacity: 0;
+    }
+    .section-reveal.init.growth{
+      transform: scale(0);
+    }
+    .section-reveal.init.elevate {
+      transform: translateY(100%);
+    }
+    .section-reveal.init.left {
+      transform: translateX(-100%);
+    }
+    .section-reveal.init.right {
+      transform: translateX(100%);
+    }
+    //running state
+    .section-reveal.run {
+      opacity: 1 !important;
+    }
+    .section-reveal.run.growth {
+      transform: scale(1) !important;
+    }
+    .section-reveal.run.elevate {
+      transform: translateY(0) !important;
+    }
+    .section-reveal.run.left {
+      transform: translateX(0) !important;
+    }
+    .section-reveal.run.right{
+      transform: translateX(0) !important;
+    }
+    //on section list items
+    .section-reveal-list {
+      ul > li {
+        @include single-transition($speed: 600ms, $ease: ease-in-out);
+      }
+    }
+    //initial state
+    .section-reveal-list.init {
+      ul > li {
+        opacity: 0;
+      }
+    }
+    .section-reveal-list.init.growth {
+      ul > li {
+        transform: scale(0);
+      }
+    }
+    .section-reveal-list.init.elevate {
+      ul > li {
+        transform: translateY(100%);
+      }
+    }
+    //running state
+    .section-reveal-list.run{
+      ul > li  {
+        opacity: 1 !important;
+      }
+    }
+    .section-reveal-list.run.growth{
+      ul > li  {
+        transform: scale(1) !important;
+      }
+    }
+    .section-reveal-list.run.elevate{
+      ul > li {
+        transform: translateY(0) !important;
+      }
+    }
+  }
+}

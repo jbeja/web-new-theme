@@ -1,0 +1,587 @@
+$table-cells-border-color: $dark-light-color;
+$cart-recipe-border-width: 1px 0px 1px 1px;
+$cart-recipe-border-color: $table-cells-border-color;
+$cart-recipe-border-style: solid;
+$cart-detail-summary-margin: 0 0 $h1-font-size 0;
+$table-cells-background: $light-color;
+
+
+$table-row-width: 100%; 
+$table-cells-border-width: 0px 1px 0px 0px ;
+$table-cells-border-style: solid;
+
+
+%table-border-template {
+  border-width: 1px;
+  border-style: solid;
+  border-color: $dark-light-color;
+  background-clip: padding-box;
+}
+
+@mixin table-border($width: null, $style: null, $color: null) {
+  @extend %table-border-template;
+  @include add-properties((
+    border-width: $width,
+    border-style: $style,
+    border-color: $color
+  ));
+}
+
+@mixin custom-check($checked-color: $emerald) {
+  input[type='radio'], input[type='checkbox'] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    z-index: 10;
+    &, & ~ span {
+      top: 50%;
+      left: 50%;
+      display: block;
+      transform: translate3d(-50%, -50%, 0);
+      width: $micro-font-size;
+      height: $micro-font-size;
+    }
+    & ~ span {
+      color: $dark-color;
+      @include border-radius(50%);
+      position: absolute;
+      @include table-border();
+      
+    }
+    &:checked ~ span {
+      border: 1px solid $checked-color !important;
+      background: $checked-color !important;
+    }
+  }
+}
+
+@mixin table-row-borders () {
+  tr:not(:last-child) {
+    @include table-border($width: 0px 0px 1px 0px);
+  }
+}
+@mixin detail-table() {
+  table {
+    background: $light-color;
+    border-spacing: 0;
+    max-width: 100%;
+    border-collapse: collapse;
+    display: block;
+    table-layout: auto;
+    @include clearfix();
+  }
+  table, tbody, tr, td, th {
+    @include clearfix();
+    border-collapse: collapse;
+  }
+  tbody, tr {
+    overflow: hidden;
+    width: 100%;
+  }
+}
+@mixin table-cells ($font-size: $micro-font-size){
+  th, td {
+    font-size: $font-size;
+    font-family: $alter-font-family;
+    vertical-align: middle;
+    position: relative;
+  }
+}
+@mixin table-headers ($size: $micro-font-size) {
+  th {
+    padding: ($size / 2) $size;
+    text-align: center;
+    color: $light-dark-color;
+    font-size: $size;
+    background: $light-color;
+    font-weight: normal;
+  }
+}
+@mixin table-details ($size: $micro-font-size, $color: $dark-color, $aligment: right) {
+  td {
+    padding: $size;
+    text-align: $aligment;
+    color: $color;
+    img {
+      @extend %fill;
+    }
+  }
+}
+
+@mixin table-totals ($float: right) {
+  position: relative;
+  float: $float;
+  display: block;
+  @include clearfix();
+
+}
+@mixin table-totals-last ($size: $micro-font-size) {
+  tr:last-child td{
+    @include table-border($width: 0 0 1px 0);
+    background: $light-color;
+    font-size: $size * 1.5;
+    font-weight: 600;
+    color: $dark-color;
+    font-family: $base-font-family;
+    text-transform: uppercase;
+  }
+  tr:not(:last-child) td:first-child{
+    font-weight: 600;
+    font-family: $base-font-family;
+  }
+}
+
+@mixin table-cell-box($index: 1, $width: 10%) {
+  td:nth-child(#{$index}) {
+    width: $width;
+  }
+}
+@mixin table-headers-borders($n: 1, $width: $cart-recipe-border-width){
+  th:nth-child(-n + #{$n}){
+    @include table-border($width: $width);
+  }
+}
+@mixin table-cells-borders($n: 1, $width: $table-cells-border-width){
+  td:nth-child(-n + #{$n}){
+    @include table-border($width: $width);
+  }
+}
+
+@mixin table-cell-label (){
+  td:before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate3d($milli-font-size, -50%, 0);
+    color: $dark-color;
+    font-family: $base-font-family;
+    font-size: $micro-font-size;
+    text-transform: uppercase;
+    display: block;
+  }
+}
+
+/*------------------------------------------------*/
+// Cart Tables
+
+
+.cart-detail, .cart-summary {
+  a {
+    @extend %fill;
+    color: $dark-color;
+    font-size: $micro-font-size;
+    font-family: $alter-font-family;
+  }
+  @include clearfix();
+  @include detail-table();
+  @include table-row-borders();
+  @include table-cells($h6-font-size);
+  @include table-headers($micro-font-size);
+  @include table-details();
+  margin: $cart-detail-summary-margin;
+
+}
+.cart-recipe {
+  @extend %fill;
+  @include table-border($width: $cart-recipe-border-width)
+
+}
+.cart-totals {
+  @include table-totals();
+  @include table-totals-last();
+  @include table-border();
+  border-top: none;
+
+}
+
+.cart-detail {
+  .cart-recipe {
+    @include table-cell-box(1, 10%);
+    @include table-cell-box(2, 50%);
+    @include table-cell-box(3, 10%);
+    @include table-cell-box(4, 0%);
+    @include table-cell-box(5, 15%);
+    @include table-cell-box(6, 20%);
+    @include table-cell-box(7, 10%);
+    @include table-headers-borders(7, 0px 1px 1px 0px);
+    @include table-cells-borders(7, 0px 1px 0px 0px);
+    td {
+      img {
+        width: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+      input {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.cart-summary {
+  .cart-recipe {
+    @include table-cell-box(1, 50%);
+    @include table-cell-box(3, 10%);
+    @include table-cell-box(4, 20%);
+    @include table-cell-box(5, 25%);
+    th:nth-child(-n + 5), td:nth-child(-n + 5){
+      @include table-border($width: 0px 1px 0px 0px);
+    }
+    th {
+      @include table-border($width: 0px 0px 1px 0px);
+    }
+    @include breakpoint("small") {
+      td:nth-child(1), td:nth-child(2) {
+        width: 100% !important;
+        text-align: right !important;
+      }
+    }
+  }
+}
+
+.shipping-methods {
+  margin-top: 0;
+  @include table-border();
+  fieldset, table {
+    width: 100%;
+  }
+  fieldset {
+    display: inline-block;
+    margin: 0;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  table:nth-child(2) {
+    @include table-border($width: 1px 1px 0px 1px);
+  }
+  tr{
+    @include table-border($width: 0px 0px 1px 0px);
+  }
+  th {
+    padding:  $micro-font-size;
+    font-weight: normal;
+    color: $light-dark-color;
+    font-family: $alter-font-family;
+    font-size: $micro-font-size;
+    text-align: left;
+    @include table-border($width: 0px 0px 1px 0px);
+    &:nth-child(-n + 2) {
+      @include table-border($width: 0px 1px 0px 0px);
+    }
+    @include breakpoint("small") {
+      display: none;
+    }
+  }
+  td {
+    position: relative;
+    color: $dark-color;
+    padding: $h6-font-size;
+    &:nth-child(-n + 2) {
+      @include table-border($width: 0px 1px 0px 0px);
+    }
+    &:nth-child(1n + 3) {
+      font-weight: 600;
+      font-family: $base-font-family;
+    }
+    @include breakpoint("small") {
+      display: block;
+      width: 100%;
+      height: auto;
+      float: left;
+      border: none;
+      text-align: right;
+      &:nth-child(2) {
+        text-align: left;
+      }
+      .check-action {
+        float: right;
+      }
+      &:nth-child(-n + 2) {
+        border-right: none;
+      }
+    }
+    @include custom-check();
+  }
+  @include breakpoint("small") {
+    @include table-cell-label();
+    td:before {
+      text-transform: capitalize;
+      font-family: $alter-font-family;
+      font-size: $h6-font-size;
+    }
+  }
+}
+
+.cart-view-data {
+  @include detail-table();
+  tbody, tr {
+    @extend  %fill;
+    border-collapse: collapse;
+  }
+}
+.cart-view-data table td {
+  display: inline-block;
+  padding: $micro-font-size;
+  a, strong {
+    color: $dark-color;
+    font-size: $micro-font-size;
+  }
+  a {
+    font-family: $alter-font-family;
+  }
+  strong {
+    font-family: $base-font-family;
+  }
+}
+.cart-view-data table:first-child{
+  @include table-border();
+  margin-top: $h1-font-size * 1.5;
+  tr {
+    width: 100%;
+    &:not(:last-child) {
+      @include table-border($width: 0px 0px 1px 0px);
+
+    }
+  }
+  td:first-child {
+    width: 20%;
+    @include table-border($width: 0px 1px 0px 0px);
+  }
+  td:last-child {
+    width: 80%;
+  }
+
+}
+.cart-view-data > table ~ table {
+  border-top: none;
+  position: relative;
+  float: right;
+  width: 100%;
+  margin-bottom: $h1-font-size;
+  tr:not(:last-child) {
+    @include table-border($width: 0px 0px 1px 0px);
+  }
+  tbody {
+    float: right;
+    @include table-border($width: 0px 1px 1px 1px);
+    width: auto;
+  }
+}
+
+.tabulated-data {
+  table {
+    @include table-border($width: 1px 0px 0px 1px);
+  }
+  @include detail-table();
+  @include table-headers();
+  @include table-cells();
+  @include table-headers-borders(7, 0px 1px 1px 0px);
+  @include table-cells-borders(7, 0px 1px 1px 0px);
+  @include table-details(($micro-font-size / 2), $dark-color, center);
+}
+
+.order-data {
+  margin: $h6-font-size 0 $h1-font-size 0;
+  .check-action {
+    display: inline-block;
+    min-width: $micro-font-size;
+    min-height: $micro-font-size;
+    &, input, span {
+      @extend %fill;
+    }
+    span {
+      transform: translate3d($milli-font-size / 2, 0, 0);
+    }
+    input, span {
+      @include breakpoint("small-to-medium") {
+        left: auto !important;
+        right: 0 !important;
+      }
+    }
+  }
+  table {
+    @include table-cell-box(1, 5%);
+    @include table-cell-box(2, 15%);
+    @include table-cell-box(3, 10%);
+    @include table-cell-box(4, 0%);
+    @include table-cell-box(5, 10%);
+    @include table-cell-box(6, 15%);
+    @include table-cell-box(7, 50%);
+    @include breakpoint("small-to-medium") {
+      @include table-cell-box(1, 100%);
+      @include table-cell-box(2, 100%);
+      @include table-cell-box(3, 100%);
+      @include table-cell-box(4, 100%);
+      @include table-cell-box(5, 100%);
+      @include table-cell-box(6, 100%);
+      @include table-cell-box(7, 100%);
+      @include table-cell-label();
+      @include table-border();
+    }
+  }
+  tbody {
+    @include breakpoint("small-to-medium") {
+      display: block;
+    }
+  }
+  th, thead {
+    @include breakpoint("small-to-medium") {
+      display: none;
+    }
+  }
+  tr {
+    @include breakpoint("small-to-medium") {
+      width: 100%;
+      display: block;
+      @include table-border($width: 0px 0px 1px 0px);
+      padding-bottom: $h6-font-size;
+    }
+  }
+  td {
+    @include breakpoint("small-to-medium") {
+      display: block;
+      height: auto;
+      float: left;
+      border: none !important;
+      text-align: right;
+      position: relative;
+    }
+  }
+  .action-button {
+    @include breakpoint("small-to-medium") {
+      float: right;
+    }
+  }
+  @include custom-check();
+}
+
+/*------------------------------------------------*/
+// Payment Table
+
+
+.payment-data {
+  @extend %page-heading;
+  table {
+    @include table-cell-box(1, 25%);
+    @include table-cell-box(2, 70%);
+    @include table-cell-box(3, 25%);
+    td {
+      text-align: right;
+    }
+    td:last-child h2, {
+      font-size: $h4-font-size;
+    }
+    td b {
+      font-weight: normal;
+    }
+  }
+}
+
+/*------------------------------------------------*/
+// Comparator Table
+
+
+
+.comparator-table {
+
+  @include table-cell-box(1, 20%);
+  @include table-cell-box(2, 20%);
+  @include table-cell-box(3, 20%);
+  @include table-cell-box(4, 20%);
+  @include table-cell-box(5, 20%);
+  margin-bottom: $h1-font-size;
+  .product-header {
+    width: auto;
+    display: block;
+    text-align: center;
+    * {
+      width: 100%;
+      display: block;
+      margin-bottom: $milli-font-size;
+    }
+  }
+}
+
+.cart-detail, .cart-summary {
+  @include breakpoint("small") {
+    thead, tbody {
+      display: block;
+    }
+    .cart-recipe {
+        @include table-cell-label();
+        border-width: 1px 1px 1px 1px;
+        td:nth-child(1),
+        td:nth-child(2),
+        td:nth-child(3),
+        td:nth-child(4),
+        td:nth-child(5),
+        td:nth-child(6),
+        td:nth-child(7) {
+          width: 100%;
+          display: block;
+          text-align: right;
+          white-space: normal;
+          float: left;
+          border: none;
+          position: relative;
+          padding: $micro-font-size;
+          input {
+            width: auto;
+          }
+      }
+      td:nth-child(1) {
+        width: 33.33334%;
+        a {
+          display: inline-block;
+        }
+      }
+      td:nth-child(2) {
+        width: 66.66666%;
+        text-align: left;
+      }
+      td input {
+        float: right;
+      }
+      tr {
+        text-align: left;
+      }
+      thead tr {
+        display: block;
+        position: absolute;
+        clip: rect(0,0,0,0);
+      }
+    }
+    .cart-totals {
+      &, tr{
+        width: 100%;
+      }
+      tr {
+        display: block;
+        overflow: hidden;
+        &:not(:last-child) {
+          border-bottom: none;
+        }
+        td:first-child {
+          text-align: left;
+        }
+      }
+      td {
+        width: 50%;
+        display: block;
+        float: left;
+        position: relative;
+        white-space: normal;
+      }
+    }
+  }
+}
+
+
+

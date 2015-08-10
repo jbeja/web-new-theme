@@ -1,0 +1,54 @@
+/*------------------------------------------------*/
+// ACTION INPUT
+.action-input-inverse, %action-input-inverse {
+  .row {
+    background: lighten($dark-color, 15%);
+  }
+  input, a {
+    color: $dark-light-color;
+
+    &::-webkit-input-placeholder {
+      color: $dark-light-color;
+    }
+    &:-moz-placeholder {
+      color: $dark-light-color;
+    }
+    &::-moz-placeholder {
+      color: $dark-light-color;
+    }
+    &:-ms-input-placeholder {
+      color: $dark-light-color;
+    }
+    &, &:focus {
+      box-shadow: none;
+    }
+    & {
+      background: none;
+    }
+    &:focus {
+      background: $base-lightness;
+    }
+  }
+}
+
+.action-input {
+  display: block;
+  input {
+    padding: 0 $h6-font-size;
+  }
+  input, a {
+    @include cover();
+    height: $h1-font-size;
+    position: relative;
+    margin: 0;
+    border: none;
+    outline: none;
+    box-shadow: none;
+  }
+  i {
+    @include absolute-center-hv();
+  }
+}
+
+/*------------------------------------------------*/
+// ACTION INPUT ENDS

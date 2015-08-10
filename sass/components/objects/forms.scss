@@ -1,0 +1,276 @@
+
+%form-entry, .form-entry, label {
+  position: relative;
+  padding: 0 0 $micro-font-size 0;
+}
+
+%form-entry, .form-entry {
+  max-width: 33.125em;
+}
+
+/*------------------------------------------------*/
+// Shared
+
+select,
+input,
+label,
+textarea{
+  @include contain();
+  margin: 0
+}
+
+input,
+textarea,
+select {
+  $sp: $micro-font-size;
+  @include cover();
+  @include box-color();
+  @include tween();
+  padding: 0 $sp;
+  color: $dark-color;
+  font-size: $sp;
+  font-family: $alter-font-family;
+  border: 1px solid $clouds;
+  position: relative;
+  height: $h1-font-size;
+  vertical-align: top;
+  &:focus,
+  &:active {
+    outline: 0;
+  }
+}
+
+input , textarea   {
+  $fh-color: lighten($base-color, 15%);
+  &:focus {
+    box-shadow: 0 0 5px rgba($fh-color, 1);
+    border: 1px solid $fh-color;
+  }
+}
+
+textarea {
+  padding-top: $milli-font-size;
+  height: $h1-font-size * 3;
+}
+
+select {
+  padding-top: $h1-font-size / 4;
+  padding-bottom: $h1-font-size / 4;
+  text-align: center;
+  option {
+    @include noliner();
+    text-align: left;
+  }
+}
+
+fieldset {
+  padding: $h6-font-size;
+}
+
+.info-form, .simple-form {
+  div {
+    position: relative;
+  }
+  select {
+    width: 100%;
+  }
+  label, select {
+    font-family: $alter-font-family;
+    color: $light-dark-color;
+    font-size: $milli-font-size;
+    font-weight: 600;
+  }
+}
+
+.reminder {
+  @include box-color();
+  color: $light-dark-color;
+  font-size: $micro-font-size;
+  font-weight: 400;
+  font-family: $alter-font-family;
+  padding: 0 0 $h6-font-size $h4-font-size;
+  a {
+    color: $base-color;
+  }
+}
+
+/*------------------------------------------------*/
+// Shared Ends
+
+/*------------------------------------------------*/
+// Info Form
+
+%info-form, .info-form {
+  &:not(:first-child) fieldset {
+    margin: $h1-font-size 0 0 0;
+  }
+  fieldset {
+    @include box-color();
+    margin: 0;
+    border: none;
+  }
+  .rif-entry {
+    & {
+      margin: 0 0 $micro-font-size 0;
+    }
+    > label {
+      margin: 0 0 ($micro-font-size / 2) 0;
+    }
+    * {
+      margin: 0;
+    }
+  }
+}
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+/** INFO-FORM ENDS
+/*--------------------------------------------------------------------------------------------------------------------*/
+
+/*------------------------------------------------*/
+// Simple-Form
+
+.simple-form {
+  padding: $h6-font-size;
+  background: $light-color;
+  input {
+    display: block;
+  }
+  .necoform-actions {
+    padding: $h4-font-size 0 0 0;
+    margin: 0;
+  }
+}
+
+/*---------------------------------------------------------------------------------------------------------------------*/
+// Simple-Form Ends
+
+/*------------------------------------------------*/
+// Neco-Form Plugin related
+
+.necoform-actions {
+  padding: $micro-font-size 0 $h4-font-size $h4-font-size;
+  margin-bottom: $h1-font-size;
+  @extend %box-color;
+}
+
+.neco-form-arroba {
+  display: none;
+}
+
+.neco-input-required {
+  color: $alizarin;
+  z-index: 100;
+  position: relative;
+  font-size: $h6-font-size;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 ($h6-font-size / 2);
+  transform: translate3d(0, ($milli-font-size / 4), 0);
+
+}
+
+.neco-input-error, .neco-input-success {
+  @include tween(background-color);
+  color: $light-dark-color !important;
+}
+
+.neco-input-error {
+  background: lighten(rgba($alizarin, 0.4), 15%) url("../../../images/form-error.png") no-repeat scroll 98% 50% !important;
+  border-color: $alizarin !important;
+}
+
+.neco-input-success {
+  background: lighten(rgba($emerald, 0.4), 15%) url("../../../images/form-ok.png") no-repeat scroll 98% 50% !important;
+  border-color: $emerald !important;
+}
+
+.neco-form-error {
+  @include cover();
+  position: absolute;
+  color: $light-color;
+  font-family: $alter-font-family;
+  font-size: $micro-font-size;
+  max-width: 20rem;
+  min-height: 3rem;
+  background: lighten($tournasol, 10%);
+  padding: $micro-font-size;
+  left: 100%;
+  top: 50%;
+  opacity: 0;
+  transform-origin: 0% 50%;
+  transform: translate3d($h4-font-size, -5rem / 2, 0) scale(0);
+  @include tween();
+  z-index: 999;
+  &:hover {
+    color: $light-color;
+  }
+  @include breakpoint("small-to-medium") {
+    left: 50%;
+    transform: translate3d(-50%, 0, 0) scale(0);
+    transform-origin: 50% 50%;
+    top: 0;
+    &:before {
+      top: 100%;
+      left: 50%;
+      transform: translate3d(-50%, -25%, 0) rotate(-90deg);
+      margin-top: 0;
+    }
+  }
+}
+
+.neco-form-error.active-feedback {
+  opacity: 1;
+  transform: translate3d($h4-font-size, -5rem / 2, 0) scale(1);
+  @include breakpoint("small-to-medium") {
+    transform: translate3d(-50%, -75%, 0) scale(1);
+  }
+}
+
+.neco-submit-error {
+  color: $alizarin;
+  font-family: $alter-font-family;
+  font-size: $micro-font-size;
+  padding: $micro-font-size 0 0 0;
+  border-bottom: 1px solid $dark-light-color;
+  margin: 0;
+}
+
+#tempLink.error {
+  display: inline-block;
+  background: none;
+  color: $light-dark-color;
+  a {
+    color: $emerald !important;
+  }
+}
+
+/*------------------------------------------------*/
+// Neco-Form Ends
+
+/*------------------------------------------------*/
+// Filter-Form
+
+.filter-form {
+  input,
+  select,
+  textarea {
+    margin: 0 0 $micro-font-size 0;
+  }
+}
+
+/*------------------------------------------------*/
+// Filter-Form
+
+/*------------------------------------------------*/
+// Payment Form
+
+.payment-form {
+  @extend %page-heading;
+  ul {
+    margin: 0;
+    li.row {
+      max-width: 100%;
+      margin: 0;
+    }
+  }
+}

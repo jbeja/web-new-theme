@@ -1,0 +1,65 @@
+
+/*------------------------------------------------*/
+// BREAKCRUMBS
+.breadcrumbs-container {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding: 0 !important;
+  margin: -$micro-font-size * 2 0 $micro-font-size 0;
+}
+.breadcrumbs {
+  padding-left: $h6-font-size;
+  background: none;
+  border-radius: 0;
+  & > *:not(:first-child) {
+    &:before {
+      content: "/";
+      font-size: $h5-font-size;
+      color: $light-dark-color;
+      font-weight: 300;
+      @include absolute-center-v();
+      transform: translate3d(0, -50%, 0);
+      margin: 0;
+
+    }
+  }
+  li:last-child a {
+    color: $base-color;
+  }
+  li:not(:first-child) a{
+    padding-left: $h5-font-size;
+  }
+  li {
+    padding: $micro-font-size 0;
+    position: relative;
+    width: auto;
+    display: inline-block;
+    vertical-align: top;
+  }
+  a {
+    padding-right: $micro-font-size;
+    color: $light-dark-color;
+    font-family: $alter-font-family;
+    font-size: $micro-font-size;
+    text-transform: capitalize;
+    font-weight: 400;
+    &:hover {
+      text-decoration: none;
+      color: $base-color;
+    }
+    &:before {
+      &:hover a{
+        text-decoration: none;
+      }
+    }
+  }
+  @include breakpoint("small") {
+    li{
+      @include ellipse();
+      width: auto;
+      max-width: 80%;
+    }
+  }
+}

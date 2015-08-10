@@ -41,3 +41,19 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# External assets
+
+bower_components/*
+css/*
+fonts/*
+images/*
+svg/*
+js/vendor/*
+js/mmenu/*
+svg-build/*
+test/*
+license.pdf
+backup.theme..js
+*.txt
+

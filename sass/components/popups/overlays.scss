@@ -1,0 +1,173 @@
+/*------------------------------------------------*/
+// OVERLAY
+%overlay-template{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform-origin: 50% 50%;
+  background-clip: padding-box;
+  z-index: 1;
+  top:0;
+  left: 0;
+  @include single-transition(all, 600ms, ease-in-out);
+}
+
+%overlay--hover-expand {
+  transform: scale(0);
+  &:hover {
+    transform: scale(1);
+  }
+}
+
+%overlay--hover-shrink {
+    transform: scale(1);
+  &:hover {
+    transform: scale(0);
+  }
+}
+
+%overlay--hover-frame {
+    border: {
+      width: 5px;
+      style: solid;
+      color: $alter-color;
+    }
+  &:hover {
+    border: {
+      width: 0px;
+      style: solid;
+      color: $alter-color;
+    }
+  }
+}
+
+%overlay--hover-hide {
+  opacity: 1;
+  &:hover {
+    opacity: 0;
+  }
+}
+%overlay--hover-show {
+    opacity: 0;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+@mixin new-overlay($background: rgba($dark-color, 0.8), $z-index: 0) {
+  @extend %overlay-template;
+  background: $background;
+  z-index: $z-index;
+}
+
+@mixin overlay-hover-scale($from: "expand") {
+  @if $from == "expand" {
+    @extend %overlay--hover-expand;
+  }
+  @if $from == "shrink" {
+    @extend %overlay--hover-shrink;
+  }
+}
+
+@mixin overlay-hover-opacity($from: "show") {
+  @if $from == "show" {
+    @extend %overlay--hover-hide;
+  }
+  @if $from == "hide" {
+    @extend %overlay--hover-show
+  }
+}
+
+// /OVERLAY
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+// OVERLAY ITEM
+
+%overlay-item-template {
+    content: " ";
+    top: 50%;
+    left: 50%;
+    display: block;
+    z-index: 100;
+    position: absolute;
+    transform-origin: 50% 50%;
+    width: $h1-font-size;
+    height: $h1-font-size;
+    background-clip: padding-box;
+    @include single-transition();
+}
+%overlay-item-template--state-expanded {
+  &:after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+%overlay-item-template--hover-expand {
+  &:after {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  &:hover &:after, &:after:hover{
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+%overlay-item-template--state-shrinked {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+%overlay-item-template--hover-shrink {
+  &:after {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  &:hover &:after, &:after:hover {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+@mixin overlay-item($size: null, $icon: null) {
+  &:after {
+    @extend %overlay-item-template;
+    background: url("../svg-build/" + #{$icon} + ".svg") transparent no-repeat 50% 50% / contain;
+    @include add-properties(( width: $size, height: $size, ));
+  }
+}
+
+@mixin overlay-item-hover-scale-with($from: "shrinked", $target: false) {
+  @if $target {
+    & #{$target} {
+      @if $from == "expanded" {
+        @extend %overlay-item-template--hover-shrink;
+      }
+      @if $from == "shrinked" {
+        @extend %overlay-item-template--hover-expand;
+      }
+    }
+  }
+  @else {
+    @warn "Target must be expecified";
+  }
+}
+
+@mixin overlay-item-hover-scale($from: "shrinked") {
+  @if $from == "expanded" {
+    @extend %overlay-item-template--hover-shrink;
+  }
+  @if $from == "shrinked" {
+    @extend %overlay-item-template--hover-expand;
+  }
+}
+
+@mixin overlay-item-state-scale($state: "expanded") {
+  @if $state == "expanded" {
+    @extend %overlay-item-template--state-expanded;
+  }
+  @if $state == "shrinked" {
+    @extend %overlay-item-template--state-shrinked;
+  }
+}
+
+// OVERLAY ITEM
+/*------------------------------------------------*/

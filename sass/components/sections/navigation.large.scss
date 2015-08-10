@@ -1,0 +1,240 @@
+$main-nav-items-color: $dark-color;
+$main-nav-items-text-transform: uppercase;
+$main-nav-items-padding: $h4-font-size;
+$main-nav-items-font-family: $base-font-family;
+$main-nav-items-font-weight: 600;
+$main-nav-items-font-size: $micro-font-size;
+$main-nav-items-background: $light-color;
+
+$main-nav-sub-items-border-width: 1px 0 0 0;
+$main-nav-sub-items-border-color: $clouds;
+$main-nav-sub-items-border-style: solid;
+$main-nav-sub-items-padding: ($h6-font-size / 2) 0;
+$main-nav-sub-items-font-family: $alter-font-family;
+$main-nav-sub-items-font-weight: 400;
+$main-nav-sub-items-text-transform: capitalize;
+$main-nav-sub-items-background: $light-color;
+
+
+
+/*-----------------------------------------------------------------------------------------*/
+// STRUCTURAL STYLE
+
+
+/*------------------------------------------------*/
+// NAV
+
+.nav {
+  background: $light-color;
+  height: auto;
+  z-index: $main-header-index;
+  &, & > .nav-list, a {
+    position: relative;
+    @include cover();
+  }
+}
+
+.nav-links {
+  min-height: 1px;
+  font-size: 0;
+}
+
+/*------------------------------------------------*/
+// NAV LINKS
+
+.nav-links {
+  min-height: 1px;
+  & > ul {
+    @include inline-list;
+    @extend %fill;
+    display: inline-block;
+    overflow: visible;
+    margin: 0;
+    & > li {
+      position: relative;
+      margin: 0
+    }
+    & ul a{
+      padding:($h6-font-size / 2) $h6-font-size;
+    }
+  }
+  a {
+    @extend %fill;
+    z-index: 10;
+  }
+}
+
+.nav-links > ul li:hover {
+  & > ul,
+  & > ul > li:hover > ul {
+    @extend %dropdown-list-open;
+  }
+}
+
+.nav-links > li:nth-child(4) ul ul {
+  left: -100%;
+}
+
+.nav-links > ul ul {
+  @extend  %dropdown-list;
+  left: 50%;
+  top: 100%;
+  margin-left: -50%;
+  min-width: $h1-font-size * 6;
+  &:before {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+  li:not(:first-child) {
+    position: relative;
+  }
+  ul {
+    @include single-transition();
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin: -1px 0 0 0px;
+    opacity: 0;
+    transform-origin: 0% 0%;
+    transform: scale(0);
+  }
+}
+
+/*------------------------------------------------*/
+// THEME STYLE
+
+.nav-links > ul {
+  & > li {
+    &:last-child a {
+      border-width: 0px 1px 0px 1px;
+    }
+    &:hover > a {
+      color: $light-color;
+      background: $dark-color;
+      border-color: $dark-color;
+      &:after {
+        background-image: url("../svg-build/light-triangle-down.svg");
+      }
+    }
+  }
+  & > li > a {
+    background: $main-nav-items-background;
+    padding: $h4-font-size $h4-font-size $h4-font-size $h4-font-size;
+    font-size: $main-nav-items-font-size;
+    text-transform: $main-nav-items-text-transform;
+    font-weight: $main-nav-items-font-weight;
+    @include single-transition();
+  }
+  & ul a {
+    font-family: $main-nav-sub-items-font-family;
+    font-weight: $main-nav-sub-items-font-weight;
+    font-size: $micro-font-size;
+    text-transform: $main-nav-sub-items-text-transform;
+    text-align: left;
+  }
+
+  & > .nested > a, & > li > ul > .nested > a{
+    position: relative;
+    &:after {
+      content: " ";
+      display: block;
+      width: $milli-font-size;
+      height: $milli-font-size;
+    }
+  }
+  & > .nested > a:after {
+    background: url("../svg-build/colored-triangle-down.svg") transparent no-repeat 50% 50% / contain;
+    position: relative;
+    display: inline-block;
+    margin-left: $h6-font-size / 2;
+  }
+  & > li > ul > .nested > a:after {
+    background: url("../svg-build/colored-angle-right.svg") transparent no-repeat 50% 50% / contain;
+    position: absolute;
+    right: $micro-font-size;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.nav-links > ul ul {
+  @extend  %dropdown-list;
+  border: solid $clouds;
+  border-width: 1px 0px 1px 1px;
+  background: $light-color;
+  li {
+    &:not(:first-child) a {
+    }
+  }
+  & ul {
+    border: 1px solid $clouds;
+  }
+}
+
+.custom-links {
+  > ul {
+    display: inline-block;
+    width: auto;
+    float: right;
+    > li {
+      float: left;
+    }
+  }
+}
+
+.main-nav-trigger {
+  @include cover();
+  i {
+    border: $clouds-border;
+    padding: $h6-font-size /2 $micro-font-size;
+  }
+  svg {
+    path {
+      fill: $dark-color;
+    }
+  }
+  &:hover {
+    svg {
+      path {
+        fill: $base-color !important;
+      }
+    }
+  }
+}
+
+
+/*------------------------------------------------*/
+// "FIX" menu Overflow
+
+.nav-links > ul > li:nth-last-child(-n + 3){
+  &:hover {
+    &:nth-last-child(-n + 3) > ul ,
+    &:nth-last-child(-n + 3) > li:hover > ul {
+      transform: translateX(-100%) scale(1);
+      opacity: 1;
+    }
+  }
+  &:nth-last-child(-n + 3) > ul {
+    transform: translateX(-100%) scale(0);
+    left: 150%;
+  }
+   > ul {
+     > li > a{
+       text-align: right;
+       &:after {
+         background-image: url("../svg-build/colored-angle-left.svg");
+         text-align: right;
+         right: auto;
+         left: $milli-font-size;
+       }
+     }
+     ul {
+       left: -100%;
+       transform-origin: 100% 0%;
+     }
+   }
+}

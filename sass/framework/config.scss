@@ -1,0 +1,611 @@
+/****************************************************************************************\
+** DEFAULT COLORS
+\*****************************************************************************************/
+
+$abestos: #7f8c8d;
+$concrete: #95a5a6;
+$whitenight: #ffffff;
+$midnight: #2c3e50;
+$wet: #34495e;
+$silver: #bdc3c7;
+$clouds: #ecf0f1;
+$wisteria: #8e44ad;
+$amethys: #9b59b6;
+$pomegranate: #c0392b;
+$alizarin: #e74c3c;
+$belize: #2980b9;
+$river: #3498db;
+$pupmkin: #d35400;
+$carrot: #e67e22;
+$nephritis: #27ae60;
+$emerald: #2ecc71;
+$orange: #f39c12;
+$tournasol: #f1c40f;
+$aquamarine: #16a085;
+$turquois: #1abc9c;
+
+$light-color: $whitenight;
+$dark-color: #333;
+$light-dark-color: darken($abestos, 15%);
+$dark-light-color: $silver;
+$dark-dark-color: darken($dark-color, 5%);
+$base-darkness: rgba(0, 0, 0, 0.027);
+$base-lightness: rgba(255, 255, 255, 0.054);
+$hover-color: $base-darkness;
+/****************************************************************************************\
+** DEFAULT TYPE
+\*****************************************************************************************/
+$base-font-family: 'Oswald', 'Roboto Condensed', 'Helvetica Neue', Helvetica, Roboto, "Droid Sans", Ubuntu, Cantarell, sans-serif !default;
+$alter-font-family: 'Raleway', 'Roboto', 'Roboto Slab', 'Open Sans', Times, Helvetica, Roboto, Arial, "Droid Sans", Ubuntu, Cantarell, serif !default;
+
+/****************************************************************************************\
+** $GLOBA VARIABLES
+\*****************************************************************************************/
+
+$base-line-height: 1.5rem;
+$double-line-height: 3rem;
+
+//Fonts
+
+$h1-font-size: rem-calc(44) !default;
+$h2-font-size: rem-calc(37) !default;
+$h3-font-size: rem-calc(27) !default;
+$h4-font-size: rem-calc(23) !default;
+$h5-font-size: rem-calc(18) !default;
+$h6-font-size: 1rem !default;
+$micro-font-size: rem-calc(14) !default;
+$milli-font-size: rem-calc(12) !default;
+
+//Radius
+
+$global-radius: 2px !default;
+
+//Z-Index
+$main-header-index: 1000;
+$main-overheader-index: 2000;
+$main-footer-index: $main-header-index;
+
+// Borders
+
+$light-dark-border: 1px solid $light-dark-color;
+$dark-light-border: 1px solid $dark-light-color;
+$clouds-border: 1px solid $clouds;
+
+$base-color: $river;
+$alter-color: $emerald;
+
+//Heights
+
+$heights: (
+        overheader: rem-calc(44),
+        main-navigation: rem-calc(80)
+);
+
+$widths: (
+        btn: rem-calc(134),
+);
+$z-layers: (
+        overheader: 10000,
+        nav: 9000,
+        dropdown: 9001,
+        overlay: 10001,
+        modal: 10002
+);
+/****************************************************************************************\
+** MIXINS
+\*****************************************************************************************/
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@function get-in($map, $key) {
+  @if map-has_key($map, $key) {
+    @return map-get($map, $key);
+  }
+}
+
+@mixin get-height($key) {
+  height: get-in($heights, $key);
+}
+
+@mixin get-width($key) {
+  width: get-in($widths, $key);
+}
+
+@mixin get-z($key) {
+  z-index: get-in($z-layers, $key);
+}
+
+@mixin add-properties($propertiesMap: ()) {
+  @if type_of($propertiesMap) != map {
+    @warn "Arguments must be type of 'map'";
+  }
+  @each $property, $value in $propertiesMap {
+    @if $value {
+      #{$property}: $value
+    }
+  }
+}
+
+%border-radius-template, .border-radius-template {
+  border-radius: $global-radius;
+  background-clip: padding-box;
+}
+
+@mixin border-radius($radius) {
+  @extend %border-radius-template;
+  @include add-properties((
+          border-radius: $radius));
+}
+
+@mixin rounded() {
+  @include border-radius(50%);
+}
+
+%clearfix-template, .clearfix-template {
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin clearfix {
+  @extend %clearfix-template;
+}
+
+@mixin translate2d($x:0, $y:0) {
+  transform: translate($x, $y);
+}
+
+@mixin translate3d($x:0, $y:0, $z:0 ) {
+  transform: translate($x, $y, $z);
+}
+
+/*------------------------------------------------*/
+// TRANSITION AND ANIMATIONS
+
+%single-transition-template {
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+}
+
+@mixin single-transition($property: null, $speed: null, $ease: null) {
+  @extend %single-transition-template;
+  @include add-properties((
+          transition-property: $property,
+          transition-duration: $speed,
+          transition-timing-function: $ease
+  ));
+}
+
+@mixin tween($property: null, $speed: null, $ease: null) {
+  @include single-transition($property, $speed, $ease);
+}
+
+// TRANSITION AND ANIMATIONS ENDS
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+// RESPONSIVE
+
+@mixin breakpoint($name) {
+  @if $name == "small" {
+    @media only screen and (max-width: 40em) {
+      @content;
+    }
+  }
+  @if $name == "small-up" {
+    @media only screen {
+      @content;
+    }
+  } @else if $name == "medium" {
+    @media only screen and (min-width: 40.063em) and (max-width: 62em) {
+      @content;
+    }
+  } @else if $name == "medium-up" {
+    @media only screen and (min-width: 40.063em) {
+      @content;
+    }
+  } @else if $name == "small-to-medium" {
+    @media only screen and (max-width: 62em) {
+      @content;
+    }
+  } @else if $name == "large" {
+    @media only screen and (min-width: 62.063em) and (max-width: 90em) {
+      @content;
+    }
+  } @else if $name == "large-up" {
+    @media only screen and (min-width: 62.063em) {
+      @content;
+    }
+  }
+}
+
+// RESPONSIVE ENDS
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+// VISIBILITY
+
+@mixin isPresent($element) {
+  @if $element {
+    display: block;
+  } @else {
+    display: none;
+  }
+}
+
+@mixin ellipse() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// VISIBILITY ENDS
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+// PETITIONERS
+
+%absolute-template, .absolute-template {
+  position: absolute !important;
+}
+
+%absolute-fill-template {
+  @extend %absolute-template;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+
+%absolute-center-hv-template {
+  @extend %absolute-template;
+  top: 50%;
+  left: 50%;
+  transform: perspective(1px) translate3d(-50%, -50%, 0);
+}
+
+%absolute-center-v-template {
+  @extend %absolute-template;
+  top: 50%;
+  left: auto;
+  transform: perspective(1px) translate3d(0, -50%, 0);
+}
+
+%absolute-center-h-template {
+  @extend %absolute-template;
+  top: auto;
+  left: 50%;
+  transform: perspective(1px) translate3d(-50%, 0, 0);
+}
+
+@mixin absolute-fill($offsetX: 0, $offsetY: 0) {
+  @extend %absolute-fill-template;
+  @include add-properties((left: $offsetX, top: $offsetY));
+}
+
+@mixin absolute-center-hv($position: null, $transform: null, $offsetX: null, $offsetY: null) {
+  @extend %absolute-center-hv-template;
+  @include add-properties((
+          position: $position,
+          left: $offsetX,
+          top: $offsetY,
+          transform: $transform
+  ));
+}
+
+@mixin absolute-center-h($position: null, $transform: null, $offsetX: null, $offsetY: null) {
+  @extend %absolute-center-h-template;
+  @include add-properties((
+          position: $position,
+          left: $offsetX,
+          top: $offsetY,
+          transform: $transform
+  ));
+}
+
+@mixin absolute-center-v($position: null, $transform: null, $offsetX: null, $offsetY: null) {
+  @extend %absolute-center-v-template;
+  @include add-properties((
+          position: $position,
+          left: $offsetX,
+          top: $offsetY,
+          transform: $transform
+  ));
+}
+
+@mixin absolute-cancel() {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none;
+}
+
+// POSITIONERS ENDS
+/*------------------------------------------------*/
+
+/*------------------------------------------------*/
+// BORDERS
+
+%box-border, .box-border {
+  border-width: 1px;
+  border-style: solid;
+  border-color: $clouds;
+  background-color: padding-box;
+}
+
+@mixin box-border($width: null, $style:null, $color: null) {
+  @extend %box-border;
+  @include add-properties((
+          border-color: $color,
+          border-style: $style,
+          border-width: $width,
+  ));
+}
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin position($position, $args) {
+  @each $o in top right bottom left {
+    $i: index($args, $o);
+
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
+      #{$o}: nth($args, $i + 1);
+    }
+  }
+  position: $position;
+}
+
+@mixin absolute($args) {
+  @include position(absolute, $args);
+}
+
+@function border-factor ($s, $bs) {
+  @if $bs <= 0 {
+    $c: 0;
+  } @else {
+    $c: (strip-units($bs) * 1.41421356)
+  }
+  @return round(strip-units($s) + $c) + px;
+}
+
+%arrow-template, .arrow-template {
+  &:after,
+  &:before {
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: 100;
+    border-color: transparent;
+  }
+}
+
+@mixin top-arrow($size: 12px, $color: $whitenight, $offset: 50%, $border-color: $clouds, $border-size: 0px) {
+  $bf: border-factor($size, $border-size);
+
+  @extend %arrow-template;
+  &:after,
+  &:before {
+    bottom: 100%;
+    left: $offset;
+  }
+  &:after {
+    border-bottom-color: $color;
+    border-width: $size;
+    margin-left: -($size);
+  }
+  &:before {
+    border-bottom-color: $border-color;
+    border-width: $bf;
+    margin-left: -($bf);
+  }
+}
+
+@mixin left-arrow($size: 12px, $color: $whitenight, $offset: 50%, $border-color: $clouds, $border-size: 0px) {
+  $bf: border-factor($size, $border-size);
+  @extend %arrow-template;
+
+  &:after,
+  &:before {
+    right: 100%;
+    top: $offset;
+  }
+  &:after {
+    border-right-color: $color;
+    border-width: $size;
+    margin-top: -($size);
+  }
+  &:before {
+    border-right-color: $border-color;
+    border-width: $bf;
+    margin-top: -($bf);
+  }
+}
+
+@mixin right-arrow($size: 12px, $color: $whitenight, $offset: 50%, $border-color: $clouds, $border-size: 0px) {
+  $bf: border-factor($size, $border-size);
+  @extend %arrow-template;
+
+  &:after,
+  &:before {
+    left: 100%;
+    top: $offset;
+  }
+  &:after {
+    border-left-color: $color;
+    border-width: $size;
+    margin-top: -($size);
+  }
+  &:before {
+    border-left-color: $border-color;
+    border-width: $bf;
+    margin-top: -($bf);
+  }
+}
+
+@mixin bottom-arrow($size: 12px, $color: $whitenight, $offset: 50%, $border-color: $clouds, $border-size: 0px) {
+  $bf: border-factor($size, $border-size);
+  @extend %arrow-template;
+
+  &:after,
+  &:before {
+    top: 100%;
+    left: $offset;
+  }
+  &:after {
+    border-top-color: $color;
+    border-width: $size;
+    margin-left: -($size);
+  }
+  &:before {
+    border-top-color: $border-color;
+    border-width: $bf;
+    margin-left: -($bf);
+  }
+}
+
+// BORDERS
+/*------------------------------------------------*/
+
+.confining, %confining {
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin confining() {
+  @extend %confining;
+}
+
+/****************************************************************************************\
+** CLASSES
+\*****************************************************************************************/
+
+%box-color, .box-color {
+  background-color: $light-color;
+}
+
+@mixin box-color() {
+  @extend %box-color;
+}
+
+%fill, .fill {
+  width: 100%;
+  height: auto;
+}
+
+%noliner, .noliner {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+%cover, .cover {
+  @extend %fill;
+  display: block;
+}
+
+%contain, .contain {
+  @extend %fill;
+  display: inline-block;
+}
+
+@mixin cover() {
+  @extend %cover;
+}
+
+@mixin contain() {
+  @extend %contain;
+}
+
+@mixin noliner() {
+  @extend %noliner;
+}
+
+%dropdown-list {
+  @include single-transition();
+  @extend %fill;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: 50% 0%;
+  list-style: none;
+}
+
+%dropdown-list-open {
+  transform: scale(1);
+  opacity: 1 !important;
+}
+
+.data {
+  margin-bottom: $h1-font-size;
+  ul {
+    @extend %fill;
+    @include box-border();
+    background: $light-color;
+    min-height: 150px;
+    padding: $h6-font-size;
+    margin-left: 0;
+    margin-bottom: 0;
+    max-height: 100%;
+    li {
+      margin: $h6-font-size / 2;
+      span {
+        color: $light-dark-color;
+        font-family: $base-font-family;
+        font-size: $h6-font-size;
+        display: inline;
+        margin-right: $h6-font-size;
+      }
+    }
+  }
+}
+
+.data-heading {
+  color: $dark-color;
+  font-size: $h4-font-size;
+  font-family: $base-font-family;
+  font-weight: 400;
+  margin-bottom: ($h3-font-size / 2);
+  margin-top: 0;
+}
+
+.break {
+  margin-bottom: $h1-font-size;
+}
+
+.catalog-break {
+  margin: 0 0 ($h1-font-size - 1.250rem) 0;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(-360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes blink {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.1;
+  }
+}

@@ -1,0 +1,153 @@
+$icon-present: true;
+
+$heading-background: $light-color;
+
+$heading-title-icon-font-size: $h6-font-size;
+$heading-title-icon-text-transform: uppercase;
+$heading-title-icon-font-weight: 600;
+
+$heading-title-padding: 0 $h6-font-size 0 0;
+$heading-title-font-family: $base-font-family;
+
+$heading-icon-color: $light-color;
+$heading-icon-background: $dark-light-color;
+$heading-icon-padding: $milli-font-size;
+$heading-icon-margin: $heading-title-padding;
+
+.page-heading, %page-heading {
+  > h1, > h2, > h3, > h4, > h5, > h6 {
+    font-size: $h4-font-size;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  > h1, > h2, > h3, > h4, > h5, > h6, > span {
+    display: inline-block;
+    margin: 0  $micro-font-size  $h4-font-size 0;
+  }
+
+  & > span {
+    font-size: $micro-font-size;
+    color: $light-dark-color;
+    font-style: italic;
+    font-family: $base-font-family;
+  }
+}
+
+/*------------------------------------------------*/
+// HEADING
+
+.heading, %heading {
+  background: $heading-background;
+  .heading-title {
+   h3 {
+      font-size: $heading-title-icon-font-size;
+      text-transform: $heading-title-icon-text-transform;
+      font-weight: $heading-title-icon-font-weight;
+    }
+  }
+  .heading-icon {
+    @if $icon-present {
+      display: inline-block;
+    }
+    @else {
+      display: none;
+    }
+    margin: $heading-icon-margin;
+    padding: $heading-icon-padding;
+    background: $heading-icon-background;
+    color: $heading-icon-color;
+    position: relative;
+  }
+  .heading-title{
+    display: inline-block;
+    width: 100%;
+    h3 {
+      margin: 0;
+      padding: $heading-title-padding;
+      font-family: $heading-title-font-family;
+    }
+  }
+  @include breakpoint("small-to-medium") {
+    margin: 0;
+    & + .widget-content {
+      margin: $h6-font-size 0;
+    }
+  }
+}
+
+/*------------------------------------------------*/
+// HEADIGN ENDS
+
+/*------------------------------------------------*/
+// HEADING DROPDOWN
+
+.heading-dropdown {
+   @include breakpoint("small-to-medium") {
+   position: relative;
+   z-index: 10;
+   cursor: pointer;
+   margin: 0 0 $h6-font-size 0;
+   .heading-title {
+     background: $light-color url('../svg-build/angle-down.svg') 95% center no-repeat;
+     z-index: 10;
+   }
+ }
+}
+
+.large-heading-dropdown {
+   position: relative;
+   z-index: 10;
+   cursor: pointer;
+   .heading-title {
+      background: $light-color url('../svg-build/angle-down.svg') 98% center no-repeat;
+      @include breakpoint("small-to-medium") {
+         background: $light-color url('../svg-build/angle-down.svg') 95% center no-repeat; 
+      }
+   }
+}
+
+
+/*------------------------------------------------*/
+// HEADING DROPDOWN ENDS
+
+/*------------------------------------------------*/
+// HADING STATES
+
+.heading + .widget-content {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+}
+
+.heading-dropdown + .widget-content {
+  @include breakpoint('small-to-medium') {
+    display: none;
+  }
+}
+
+/*------------------------------------------------*/
+// HEADING STATES ENDS
+
+
+
+/*------------------------------------------------*/
+// FILTER HEADING
+
+
+.filter-heading {
+  background: $light-color url('../svg-build/angle-down.svg') 95% center no-repeat;
+  &:hover {
+    background: $light-color url('../svg-build/angle-down.svg') 95% center no-repeat;
+  }
+  &.active {
+    background-color: $hover-color;
+  }
+  & + .filter-options {
+    display: none;
+    font-family: $alter-font-family;
+  }
+  > * {
+    position: relative;
+    @extend %fill;
+  }
+}

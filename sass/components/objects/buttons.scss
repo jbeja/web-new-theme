@@ -1,0 +1,446 @@
+
+$see-button-present: false;
+
+$action-x-display: inline-block;
+$action-x-text-align: center;
+$action-x-width: auto;
+
+$action-button-padding: 0 ($micro-font-size / 2);
+$action-button-min-width: $h1-font-size * 3;
+$action-button-font-size: $micro-font-size;
+$action-button-font-family: $base-font-family;
+$action-button-font-weight: 400;
+$action-button-display: inline-block;
+$action-button-text-transform: capitalize;
+$action-button-text-align: center;
+
+$action-button-text-padding: ($milli-font-size / 2) $micro-font-size;
+
+$action-add-color: $light-color;
+$action-add-background: $base-color;
+$action-add-border: 1px solid $action-add-background;
+
+$action-add-hover-color: $light-color;
+$action-add-hover-background: $dark-color;
+$action-add-hover-border: 1px solid $action-add-hover-background;
+
+$action-see-color: $dark-color;
+$action-see-background: $light-color;
+$action-see-border: $dark-light-border;
+
+$action-see-hover-color: $emerald;
+$action-see-hover-background: $light-color;
+$action-see-hover-border: 1px solid $dark-light-border;
+
+$single-product-action-button-padding: ($micro-font-size / 2) ($micro-font-size / 4);
+$single-product-action-button-font-size: $micro-font-size;
+
+
+$widget-latest-actions-width: auto;
+
+$latest-home-actions-width: 100%;
+
+$action-step-color: $light-color;
+$action-step-font-size: $micro-font-size;
+$action-step-padding: ($h6-font-size / 2) $micro-font-size;
+$action-step-display: inline-block;
+$action-step-font-family: $base-font-family;
+
+$action-step-prev-background: $river;
+$action-step-next-background: $emerald;
+
+
+/*------------------------------------------------*/
+// BUTTONS
+
+%buttonable-template {
+  cursor: pointer;
+  @include border-radius(0px);
+  box-shadow: 0px 2px 1px 0px rgba($light-dark-color, 0.2);
+  &:active
+  , &:focus {
+    box-shadow: inset 0px 0px 1px 1px rgba($light-dark-color, 0.2);
+  }
+}
+.btn-primary-hovered-state,
+%btn-primary-hovered-state,
+.btn-secondary-hovered-state,
+%btn-secondary-hovered-state,
+.btn-tertiary-hovered-state,
+%btn-tertiaty-hovered-state {
+ @include tween();
+
+}
+
+
+.btn-primary-hovered-state, %btn-primary-hovered-state {
+  background: $base-color;
+  border-color: $base-color;
+  &:hover,
+  &:active,
+  &:focus
+  &.active{
+    background: $dark-color;
+    border-color: $dark-color;
+  }
+}
+
+.btn-secondary-hovered-state, %btn-secondary-hovered-state {
+  @include confining();
+  background: $dark-color;
+  border-color: $dark-color;
+  &:hover,
+  &:active,
+  &:focus
+  &.active{
+    background: $base-color;
+    border-color: $base-color;
+  }
+}
+
+.btn-tertiary-hovered-state, %btn-primary-hovered-state {
+  background: $light-color;
+  border-color: $light-color;
+  &:hover,
+  &:active,
+  &:focus
+  &.active{
+    background: $clouds;
+    border-color: $clouds;
+  }
+}
+
+@mixin btn-primary-hover {
+  @extend %btn-primary-hovered-state;
+}
+
+@mixin btn-secondary-hover {
+  @extend %btn-secondary-hovered-state;
+}
+
+@mixin btn-tertiary-hover {
+  @extend %btn-tertiary-hovered-state;
+}
+
+@mixin buttonable() {
+  @extend %buttonable-template;
+}
+
+%btn-template {
+  @include buttonable();
+  @include confining();
+  font-size: $micro-font-size;
+  font-family: $base-font-family;
+  font-weight: 600;
+  padding:  ($h6-font-size / 2) $h6-font-size;
+  width: auto;
+  text-transform: capitalize;
+  display: inline-block;
+  text-align: center;
+  min-width: rem-calc(134);
+  touch-action: manipulation;
+  background-image: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  &, * {
+    @include tween();
+  }
+}
+
+.btn-primary-hovered-template, %btn-primary-hovered-template {
+  @include btn-primary-hover();
+  color: $light-color;
+  &:hover {
+    color: $light-color;
+  }
+}
+
+.btn-secondary-hovered-template, %btn-secondary-hovered-template {
+  @include btn-secondary-hover();
+  color: $light-color;
+  &:hover {
+    color: $light-color;
+  }
+}
+
+.btn-tertiary-hovered-template, %btn-tertiary-hovered-template {
+  @include btn-tertiary-hover();
+  color: $light-dark-color;
+  &:hover {
+    color: $light-dark-color;
+  }
+}
+@mixin btn ($font-size: null, $padding: null, $text-transform: null){
+  @extend %btn-template;
+  @include add-properties((
+          font-size: $font-size,
+          text-transform:  $text-transform,
+          padding: $padding,
+  ));
+}
+
+@mixin btn-primary($font-size: null, $padding: null, $text-transform: null){
+  @include btn($font-size, $padding, $text-transform);
+  @extend %btn-primary-hovered-template;
+}
+
+@mixin btn-secondary($font-size: null, $padding: null, $text-transform: null){
+  @include btn($font-size, $padding, $text-transform);
+  @extend %btn-secondary-hovered-template;
+}
+
+@mixin btn-tertiary($font-size: null, $padding: null, $text-transform: null){
+  @include btn($font-size, $padding, $text-transform);
+  @extend %btn-tertiary-hovered-template;
+}
+
+.actions {
+  display: $action-x-display;
+  width: 100%;
+  font-size: 0;
+  @include breakpoint("small") {
+    width: 100%;
+  }
+  .action-button {
+    width: auto !important;
+    display: inline-block;
+  }
+}
+
+.action-button a {
+  @include btn;
+  @include buttonable();
+  @extend %fill;
+  @include tween(background);
+}
+
+//[.actions-button-see]
+
+.action-see a, .action-contact a{
+  @include btn-secondary();
+}
+
+// [.actions-button-add]
+
+.action-add a {
+  @include btn-secondary();
+}
+
+// [.control-flow]
+
+@if $see-button-present {
+  .action-see {
+    display: inline-block;
+  }
+}
+@else {
+  .action-see {
+    display: none !important;
+  }
+  .catalog-list .action-button.action-add,
+  .single-product .action-button.action-add,
+  .overlay-view .action-button.action-add{
+    padding-left: 0;
+  }
+
+}
+
+.catalog-list .actions {
+  @include breakpoint("small") {
+    @include grid-row();
+    @if $see-button-present {
+      .action-add, .action-see {
+        @include grid-column(6);
+      }
+    }
+    @else {
+      & {
+        text-align: left;
+      }
+      .action-add, .action-see {
+        @include grid-column(12);
+        width: auto;
+      }
+    }
+  }
+}
+
+// [.catalog .actions]
+
+.catalog-grid {
+  .actions {
+    width: 100%;
+    text-align: center;
+  }
+}
+.latest-home {
+  .actions {
+    width: $latest-home-actions-width;
+  }
+}
+
+// [.widget-latest .actions]
+.widget-latest {
+  .actions {
+    text-align: center;
+    width: $widget-latest-actions-width;
+  }
+}
+
+// [.single-product .action-button]
+
+.single-product, .overlay-view {
+  .actions {
+    text-align: left;
+  }
+}
+.single-product {
+  .action-button:first-child {
+    padding-left: 0;
+  }
+  .action-button:last-child {
+    padding-right: 0;
+  }
+}
+
+/*------------------------------------------------*/
+// Action filter
+
+.filter-action {
+  margin-top: ($h6-font-size / 2);
+}
+
+
+/*------------------------------------------------*/
+// Confirm and CRUD actions
+
+
+.action-update a,
+.action-delete a,
+.action-new a,
+.action-subscribe a,
+.action-login a,
+.action-google a,
+.action-facebook a,
+.action-twitter a,
+.action-live a,
+.action-success a,
+.action-alert a,
+.action-default a{
+  color: $light-color;
+  margin-right: $micro-font-size;
+  &:hover {
+    color: $light-color;
+  }
+}
+.action-cancel a,
+.action-accept a {
+  margin-right: 0;
+  @include btn-secondary();
+}
+
+.action-login a {
+  background: $base-color;
+}
+
+.action-live a {
+  background: $belize;
+}
+
+.action-facebook a {
+  color: darken($belize, 10%);
+}
+
+.action-update a, .action-twitter a, .action-default {
+  background: $river;
+}
+
+.action-delete a, .action-google a, .action-alert{
+  background: $alizarin;
+}
+
+.data  ul li.address-info {
+  margin-bottom: $h6-font-size;
+}
+
+.action-new a, .action-subscribe a, .action-success a {
+  background: $emerald;
+}
+
+.action-login, .cart-panel {
+  width: auto;
+  display: inline-block;
+  li {
+    font-family: $alter-font-family;
+  }
+  i {
+    position: relative;
+    display: inline-block;
+    svg {
+      width: $h5-font-size;
+      height: $h5-font-size;
+      animation: spin 1s linear 0s infinite;
+      transform-origin: 50% 50%;
+      path {
+        fill: $light-color;
+      }
+    }
+  }
+}
+.cart-panel i{
+  text-align: center;
+  svg {
+    path {
+      fill: $base-color !important;
+    }
+  }
+}
+/*------------------------------------------------*/
+// CONFIRM AND CRUD ACTIONS ENDS
+
+/*------------------------------------------------*/
+// Action Iconed
+
+%action-iconed, .action-iconed {
+  i {
+    margin: 0 $milli-font-size 0 0;
+    color: $dark-light-color;
+  }
+  * {
+    font-size: $micro-font-size;
+    color: $light-dark-color;
+    font-weight: 300;
+  }
+  *:not(i) {
+    font-family: $alter-font-family;
+  }
+}
+
+/*------------------------------------------------*/
+// Neco Wizar Steps
+
+.action-step {
+  @include btn-secondary(); 
+  &.neco-wizard-prev {
+    margin-right: $micro-font-size;
+    background: $action-step-prev-background;
+    &:hover {
+      background: $base-color;
+    }
+  }
+  &.neco-wizard-next {
+    background: $action-step-next-background;
+    &:hover {
+      background: $base-color;
+    }
+  }
+}
+
+
+/*------------------------------------------------*/
+// Neco Wizard Steps Ends
+
+
+/*------------------------------------------------*/
+// Clear Action
+

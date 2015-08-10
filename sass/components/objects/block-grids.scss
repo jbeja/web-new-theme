@@ -1,0 +1,129 @@
+.home-grid-small,
+.home-grid-medium,
+.home-grid-full{
+  @extend %fill;
+  display: inline-block;
+  .block-grid, .catalog-grid ul {
+    @include breakpoint("medium") {
+      @include block-grid(2);
+    }
+    @include breakpoint("small") {
+      @include block-grid(1);
+      & li {
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
+  }
+}
+
+.home-grid-small {
+  .block-grid, .catalog-grid ul {
+    @include  breakpoint("large-up") {
+      @include block-grid(2);
+      & > li:nth-child(2n+1):nth-last-child(-n+2),
+          li:nth-child(2n+1):nth-last-child(-n+2) ~ li {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+
+.home-grid-medium {
+  .block-grid, .catalog-grid ul {
+    @include  breakpoint("large-up") {
+      @include block-grid(3);
+      & > li:nth-child(3n+1):nth-last-child(-n+3),
+          li:nth-child(3n+1):nth-last-child(-n+3) ~ li {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+.home-grid-full {
+  .page-contact {
+    @include breakpoint("medium-up") {
+      .contact-info {
+        @include grid-column(5);
+        padding-left: 0;
+      }
+      .contact-form {
+        @include grid-column(7);
+      }
+    }
+    @include breakpoint("small") {
+      .contact-info, .contact-form  {
+        @include grid-column(12);
+      }
+    }
+  }
+
+  .block-grid, .catalog-grid ul {
+    @include  breakpoint("large-up") {
+      @include block-grid(4);
+    }
+    & > li:nth-child(4n+1):nth-last-child(-n+4),
+        li:nth-child(4n+1):nth-last-child(-n+4) ~ li {
+      padding-bottom: 0;
+    }
+  }
+}
+
+/*------------------------------------------------*/
+// HOME PAGE GRID
+
+.home-grid-small,
+.home-grid-medium,
+.home-grid-full {
+  .home-products {
+    .block-grid, .catalog-grid ul {
+      @include breakpoint("medium") {
+        & > li:nth-child(2n+1):nth-last-child(-n+2),
+            li:nth-child(2n+1):nth-last-child(-n+2) ~ li {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.home-grid-small {
+  .home-products {
+    .block-grid, .catalog-grid ul {
+      @include breakpoint("large-up") {
+        & > li:nth-child(2n+1):nth-last-child(-n+2),
+            li:nth-child(2n+1):nth-last-child(-n+2) ~ li {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.home-grid-medium{
+  .home-products {
+    .block-grid, .catalog-grid ul {
+      @include  breakpoint("large-up") {
+        & > li:nth-child(3n+1):nth-last-child(-n+3),
+          li:nth-child(3n+1):nth-last-child(-n+3) ~ li {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.home-grid-full {
+  .home-products  {
+    .block-grid, .catalog-grid ul {
+      @include  breakpoint("large-up") {
+        & > li:nth-child(4n+1):nth-last-child(-n+4),
+            li:nth-child(4n+1):nth-last-child(-n+4) ~ li {
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,76 @@
+/*------------------------------------------------*/
+// OVERRIDE: MMENU
+
+#leftOffCanvas {
+  @include breakpoint("small-to-medium") {
+    & {
+      visibility: hidden;
+      clip: rect(0, 0, 0, 0);
+      position: fixed;
+      width: 80% !important;
+      float: auto !important;
+      background: $light-color;
+    }
+    a {
+      color: $dark-color;
+      border: none;
+    }
+    li {
+      border-color: $dark-light-color !important;
+    }
+  }
+}
+
+.mm-title {
+  font-weight: 700;
+}
+
+.mm-next:after, .mm-prev:before {
+  border-color: $base-color !important;
+}
+
+.mm-next:before {
+  border-width: 0px 0px 0px 1px !important;
+  top:0 !important;
+  left: 0 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+.mm-navbar, .mm-next:before {
+  border-color: $dark-light-color !important;
+
+}
+.mm-menu > .mm-panel {
+}
+
+.mm-subclose {
+
+}
+
+.mm-menu {
+  @include breakpoint("small-to-medium") {
+  }
+  @include breakpoint("small") {
+  }
+}
+.mm-list {
+  @include breakpoint("small-to-medium") {
+    & > li{
+      > a {
+      }
+    }
+  }
+}
+a.mm-subopen::after {
+}
+
+// [.mm-list::after]
+.mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults)::after {
+  @include breakpoint("small-to-medium") {
+  }
+}
+
+.mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-search):not(.mm-noresults)::after {
+}
+/*------------------------------------------------*/
+// OVERRIDE: MMENU ENDS

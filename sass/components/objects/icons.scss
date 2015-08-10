@@ -1,0 +1,79 @@
+.icon {
+    vertical-align: middle;
+    line-height: 0;
+	svg path {
+		fill: $light-dark-color;
+	}
+}
+
+.heading-icon {
+	svg path {
+		fill: $light-color;
+	}
+}
+
+.overheader-icon, .input-icon {
+  svg {
+    width: $micro-font-size;
+    height: $micro-font-size;
+  }
+}
+
+.overheader-icon {
+  svg path {
+    fill: $dark-light-color;
+  }
+}
+
+.input-icon {
+  svg path {
+    fill: $dark-light-color;
+  }
+}
+
+.config-menu-icon {
+  svg path {
+    fill: $dark-color;
+  }
+}
+
+.overheader-guide {
+	position: absolute;
+	display: inline-block;
+	transform: translate3d($micro-font-size, 0, 0);
+}
+
+.cart-icon {
+	svg {
+		width: $h5-font-size;
+		height: $h5-font-size;
+	}
+	svg path {
+		fill: $light-dark-color;
+	}
+}
+
+.icon-thumb-up, .icon-thumb-down {
+	&, svg {
+		width: $milli-font-size;
+		height: $milli-font-size
+	}
+}
+
+.icon-thumb-up {
+	svg {
+		path {
+			fill: $emerald
+		}
+	}
+}
+
+.icon-thumb-down {
+	svg {
+		transform: rotateX(-180deg);
+		transform-origin: 50% 50%;
+		path {
+			fill: $alizarin
+		}
+	}
+}

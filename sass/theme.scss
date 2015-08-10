@@ -1,0 +1,303 @@
+@import "framework/vendor";
+@import "framework/config";
+
+html, body {
+	margin-top: 0;
+	padding: 0;
+	background: $clouds;
+	height: auto;
+	position: relative;
+
+}
+body * {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+.panel-lateral {
+	display: none;
+}
+#adminTopNav {
+	display: none !important;
+}
+
+.sb-slider {
+  margin-top: 0 !important;
+}
+.row {
+  position: relative;
+}
+
+
+/****************************************************************************************\
+** THEME STYLES
+\*****************************************************************************************/
+
+a {
+  color: $dark-color;
+  text-decoration: none;
+  font-family: $base-font-family;
+  &:hover, &:focus, &:active {
+    color: $base-color;
+  }
+}
+a ~ ul a {
+  font-family: $alter-font-family;
+}
+
+span, p, em, small, th, td, select, option, cite, blockquote {
+  font-family: $alter-font-family;
+
+}
+p {
+  color: $light-dark-color;
+}
+
+textarea {
+  min-height: $h1-font-size * 3 !important;
+}
+
+
+ul, li {
+  list-style-position: outiside !important;
+  list-style-image: none !important;
+  list-style-type: none !important;
+}
+
+ul li ol, ul li ul, dl, ol, ul {
+  margin-left: 0;
+  margin-bottom: 0;
+  line-height: normal;
+}
+
+select, option {
+  background-color: $light-color;
+}
+
+h1, h2, h3, h4, h5 , h6, strong, strong *{
+  font-family: $base-font-family;
+  color: dark-color;
+  margin: 0;
+}
+
+figure {
+	display: block;
+	margin: 0;
+}
+.top-bar {
+  line-height: 0;
+}
+.top-bar input, .top-bar .button, .top-bar button {
+	top: 0px !important;
+}
+::-webkit-input-placeholder {
+  color: $light-dark-color;
+  font-family: $alter-font-family;
+  opacity: 1;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: $light-dark-color;
+  font-family: $alter-font-family;
+  opacity: 1;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color: $light-dark-color;
+  font-family: $alter-font-family;
+  opacity: 1 ;
+}
+
+:-ms-input-placeholder {
+  color: $light-dark-color;
+  font-family: $alter-font-family;
+  opacity: 1;
+}
+
+/*------------------------------------------------*/
+// Objects
+
+@import "components/objects/block";
+@import "components/objects/columns";
+@import "components/objects/sort";
+@import "components/objects/glossary";
+@import "components/objects/icons";
+@import "components/objects/pagination";
+@import "components/objects/breadcumbs";
+@import "components/objects/block-grids";
+@import "components/objects/lists";
+@import "components/objects/forms";
+@import "components/objects/inputs";
+@import "components/objects/headings";
+@import "components/objects/buttons";
+@import "components/objects/filters";
+@import "components/objects/tables";
+@import "components/objects/tabs";
+@import "components/objects/quickview-trigger";
+
+/*=======================================================================================\
+== POPUPS
+\========================================================================================*/
+
+@import "components/popups/loader";
+@import "components/popups/messages";
+@import "components/popups/dropdowns";
+@import "components/popups/overlays";
+@import "components/popups/quickview-cart";
+@import "components/popups/quickview-product";
+
+/*=======================================================================================\
+== SECTIONS
+\========================================================================================*/
+@import "components/sections/mmenu";
+@import "components/sections/overheader";
+@import "components/sections/header";
+@import "components/sections/catalog";
+@import "components/sections/underbottom";
+
+/*=======================================================================================\
+== WIDGETS
+\========================================================================================*/
+
+@import "components/widgets/categories";
+@import "components/widgets/main";
+@import "components/widgets/latests";
+@import "components/widgets/links";
+@import "components/widgets/carousel";
+@import "components/widgets/store-title";
+@import "components/widgets/store-description";
+@import "components/widgets/subscribe";
+
+/*=======================================================================================\
+== PAGES
+\========================================================================================*/
+
+@import "components/pages/single-product";
+@import "components/pages/checkout";
+@import "components/pages/category";
+@import "components/pages/login";
+@import "components/pages/payment";
+@import "components/pages/review";
+@import "components/pages/success";
+@import "components/pages/generic-page";
+
+
+/*=======================================================================================\
+== Selectives
+\========================================================================================*/
+
+@import "fancybox/fancybox";
+@import "jqueryui/datepicker";
+
+/****************************************************************************************\
+** MEDIA QUARIES
+\*****************************************************************************************/
+
+
+
+/* form 0 to (640px), small only*/
+@media only screen and (max-width: 40em) {
+  .row .row{
+    margin: 0;
+  }
+  .columns .columns {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .single-product-info {
+    margin-top: $h6-font-size * 1.5;
+  }
+  .breadcrumbs {
+    li:not(:first-child) a {
+      @include ellipse;
+    }
+  }
+  .catalog-list {
+    .picture, .info, .product-info{
+      @include grid-column(12);
+    }
+    .picture {
+      padding: $h6-font-size;
+    }
+
+    .name, .overview, .price {
+      padding: 0
+    }
+    .overview {
+        margin: 0;
+    }
+  }
+}
+
+
+/* min-width 0 up to medium screen (from small to medium)*/
+@media only screen and (max-width: 62em) {
+  .neco-wizard-controls {
+    li {
+      width: 100%;
+      display: block;
+      text-align: left;
+    }
+  }
+  .heading-carousel + .slick-slider{
+    .slick-prev, .slick-next {
+      z-index:10;
+      box-shadow: none;
+      margin-top: -$h1-font-size * 1.2;
+      right: $h2-font-size;
+      &:before {
+        font-size: $h4-font-size;
+      }
+    }
+    .slick-prev {
+      right: $h1-font-size * 1.5;
+    }
+
+  }
+  .feature-heading {
+    display: block;
+    margin-bottom: $h6-font-size;
+  }
+  .neco-wizard-controls {
+   li {
+      span {
+        padding: $h6-font-size;
+        border: $dark-light-border;
+      }
+      &:not(:last-child) span{
+          border-bottom: none;
+      }
+    }
+  }
+  .confirmation-comment textarea {
+    width: 100%;
+  }
+  .logo {
+    text-align: center;
+    img {
+      max-height: $h1-font-size;
+    }
+  }
+  .slickBanner > div {
+    margin-bottom: $h1-font-size;
+  }
+}
+
+/* min-width 1025px, large screens (large to infinity */
+@media only screen and (min-width: 62.063em) {
+  .widget-latest {
+      .name {
+          @include ellipse;
+      }
+	}
+	.logo {
+		text-align: left;
+	}
+    .feature-heading {
+      display: inline-block;
+    }
+    .heading {
+      margin-bottom: $h6-font-size;
+    }
+    @import "components/sections/navigation.large";
+}
+

@@ -1,0 +1,24 @@
+/*------------------------------------------------*/
+// SORT WIDGET
+
+.sort {
+  padding-bottom: $h6-font-size;
+  border-bottom: 1px solid $dark-color;
+  margin: 0 0 $h6-font-size 0;
+  select {
+    margin: 0 0 $h6-font-size 0;
+  }
+}
+
+.icon.icon-sort {
+	svg {
+		width: $h3-font-size;
+		height: $h3-font-size;
+		path {
+			fill: $dark-color;
+		}
+	}
+}
+
+/*------------------------------------------------*/
+// SORT WIDGET ENDS
