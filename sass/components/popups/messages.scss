@@ -7,8 +7,8 @@
   100% {transform: perspective(1px) translate3d(0, $h1-font-size * 2, 0); opacity: 0}
 }
 
-.message {
-  padding:$h6-font-size ($h4-font-size * 2.5) $h6-font-size $h4-font-size;
+.message, %message {
+  padding:$h6-font-size $h4-font-size $h6-font-size $h4-font-size;
   color: $light-color;
   font-family: $alter-font-family;
   font-size: $micro-font-size;
@@ -19,39 +19,40 @@
   bottom: $h1-font-size;
   left: $h1-font-size;
   z-index: 100000;
-  @include border-radius(2px);
-  @include bottom-arrow(10, $offset: $h2-font-size);
   box-shadow:  0px 1px 4px 0px rgba(0, 0, 0, 0.2);
-  animation: pop-from-below-in 700ms cubic-bezier(.68,-0.55,.27,1.55) 0ms forwards, pop-from-below-out 700ms cubic-bezier(1.55, .27, -0.55, .68) 8450ms forwards;
-  &:after {
+  opacity: 0;
+  transform: translate3d(0, $h1-font-size * 2, 0);
+  @include border-radius(2px);
+  i {
     display: none;
   }
-   i {
-     @include absolute-center-v();
-     right: $h4-font-size;
-     svg {
-       @include size($h5-font-size);
-       path {
-         fill: rgba($light-color, 1);
-       }
-     }
-   }
+  &:not(.neco-form-error) {
+    animation: pop-from-below-in 700ms cubic-bezier(.68,-0.55,.27,1.55) 0s forwards, pop-from-below-out 700ms cubic-bezier(1.55, .27, -0.55, .68) 8450ms forwards;
+  }
+  @include breakpoint("small") {
+    left: $micro-font-size;
+    right: $micro-font-size;
+    padding: $h6-font-size;
+  }
 }
+
 .warning {
   background: lighten($alizarin, 10%);
   &:before {
     border-top-color: lighten($alizarin, 10%);
   }
-
 }
+
 .error  {
   background: $alizarin;
   border-top-color: $alizarin;
 }
+
 .success {
   background: lighten($emerald, 10%);
   border-top-color: lighten($emerald, 10%);
 }
+
 .no-info {
   color: $light-dark-color;
   font-size: $h6-font-size;

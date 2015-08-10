@@ -12,20 +12,21 @@
 // Shared
 
 select,
-input,
+input:not([type="checkbox"]),
 label,
 textarea{
   @include contain();
   margin: 0
 }
 
-input,
+input:not([type="checkbox"]),
 textarea,
 select {
   $sp: $micro-font-size;
   @include cover();
   @include box-color();
   @include tween();
+  transition-property: box-shadow, border, background-color;
   padding: 0 $sp;
   color: $dark-color;
   font-size: $sp;
@@ -185,45 +186,23 @@ fieldset {
 }
 
 .neco-form-error {
-  @include cover();
-  position: absolute;
-  color: $light-color;
-  font-family: $alter-font-family;
-  font-size: $micro-font-size;
-  max-width: 20rem;
-  min-height: 3rem;
-  background: lighten($tournasol, 10%);
-  padding: $micro-font-size;
-  left: 100%;
-  top: 50%;
-  opacity: 0;
-  transform-origin: 0% 50%;
-  transform: translate3d($h4-font-size, -5rem / 2, 0) scale(0);
-  @include tween();
-  z-index: 999;
-  &:hover {
+  $message-bg: lighten($alizarin, 10%);
+  @extend %message;
+  @include tween(all, 700ms, cubic-bezier(.68,-0.55,.27,1.55));
+  background-color: $message-bg;
+  &:before {
+    content: attr(data-label);
+    position: relative;
+    display: inline-block !important;
     color: $light-color;
-  }
-  @include breakpoint("small-to-medium") {
-    left: 50%;
-    transform: translate3d(-50%, 0, 0) scale(0);
-    transform-origin: 50% 50%;
-    top: 0;
-    &:before {
-      top: 100%;
-      left: 50%;
-      transform: translate3d(-50%, -25%, 0) rotate(-90deg);
-      margin-top: 0;
-    }
+    margin-right:  $h4-font-size / 4;
+    font-weight: 700;
   }
 }
 
 .neco-form-error.active-feedback {
   opacity: 1;
-  transform: translate3d($h4-font-size, -5rem / 2, 0) scale(1);
-  @include breakpoint("small-to-medium") {
-    transform: translate3d(-50%, -75%, 0) scale(1);
-  }
+  transform: translate3d(0, 0, 0);
 }
 
 .neco-submit-error {
